@@ -1,1 +1,3 @@
 # Diabetic-retinopathy-detection
+
+In this project, I trained a deep neural network model based on Convolutional Neural Networks (CNNs) and Residual Blocks to detect the type of Diabetic Retinopathy from images. Diabetic Retinopathy is a disease that results from complication of type 1 and 2 diabetes. The disease can develop if blood sugar levels are left uncontrolled for a prolonged period of time. It is caused by the damage of blood vessels in the retina which is located in the back of patient’s eyes. Diabetic Retinopathy is the leading cause of blindness in the working-age population of the developed world and is estimated to affect over 347 million people worldwide
