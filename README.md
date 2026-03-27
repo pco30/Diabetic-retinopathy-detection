@@ -1,5 +1,79 @@
-# Diabetic-retinopathy-detection
+# Diabetic Retinopathy Detection
 
-In this project, I developed and trained a deep neural network model utilizing Convolutional Neural Networks (CNNs) and Residual Blocks to accurately detect various types of Diabetic Retinopathy from retinal images. Diabetic Retinopathy is a severe complication arising from both type 1 and type 2 diabetes, often developing when blood sugar levels remain uncontrolled over an extended period. This disease results from damage to the blood vessels in the retina, which is situated at the back of the eye.
+This project trains and evaluates a CNN with residual blocks to classify retinal images into diabetic retinopathy severity classes.
 
-Diabetic Retinopathy is the leading cause of blindness among the working-age population in developed countries, affecting over 347 million people globally. By leveraging advanced deep learning techniques, this project aims to enhance early detection and diagnosis, thereby improving patient outcomes and preventing severe vision loss. The integration of CNNs and Residual Blocks in the model architecture allows for capturing intricate patterns in retinal images, facilitating accurate classification and contributing to more effective screening programs for Diabetic Retinopathy.
+## Refactored Structure
+
+The codebase is now split into focused modules:
+
+- `diabetic.py`: backward-compatible entry point (`python diabetic.py`).
+- `drd/config.py`: runtime configuration defaults.
+- `drd/data.py`: dataset scanning, stratified split, and data generators.
+- `drd/model.py`: residual block and model architecture.
+- `drd/evaluate.py`: prediction mapping, metrics, and confusion matrix inputs.
+- `drd/visualize.py`: plotting helpers for EDA and predictions.
+- `drd/pipeline.py`: orchestration (train + evaluate).
+
+## Dataset Layout
+
+Arrange the dataset as class subfolders:
+
+```text
+your_data_dir/
+  Mild/
+    img1.jpg
+    img2.jpg
+  Moderate/
+  No_DR/
+  Proliferate_DR/
+  Severe/
+```
+
+## Setup
+
+Create and activate a virtual environment, then install dependencies:
+
+```bash
+pip install tensorflow pandas numpy scikit-learn matplotlib seaborn pillow
+```
+
+## Run
+
+### Option 1 (legacy command)
+
+```bash
+python diabetic.py --data-dir "C:/path/to/train" --output-dir "outputs"
+```
+
+### Option 2 (module command)
+
+```bash
+python -m drd.pipeline --data-dir "C:/path/to/train" --output-dir "outputs"
+```
+
+Useful flags:
+
+- `--epochs 20`
+- `--batch-size 32`
+- `--image-size 256 256`
+- `--seed 42`
+- `--no-plots` (for headless training runs)
+
+Model checkpoints are saved to:
+
+- `outputs/best_weights.keras` (or your chosen `--output-dir`)
+
+## What Was Fixed During Refactor
+
+- Removed hardcoded absolute paths and replaced them with CLI arguments.
+- Fixed checkpoint consistency (train/save/load now use the same file).
+- Fixed class label mapping by deriving labels from generator `class_indices`.
+- Fixed random sampling bug in qualitative prediction plotting.
+- Added stratified train/test split for better class balance.
+- Separated validation generator from augmentation pipeline.
+- Removed truncating `steps_per_epoch` usage that could drop data.
+
+## Notes
+
+- This remains a research/training project; no API or deployment service is included.
+- If you want, the next step can be adding `requirements.txt` and lightweight tests for data loading and label mapping.
