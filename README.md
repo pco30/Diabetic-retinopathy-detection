@@ -2,9 +2,9 @@
 
 This project trains and evaluates a CNN with residual blocks to classify retinal images into diabetic retinopathy severity classes.
 
-## Refactored Structure
+## Structure
 
-The codebase is now split into focused modules:
+The codebase is split into focused modules:
 
 - `diabetic.py`: backward-compatible entry point (`python diabetic.py`).
 - `drd/config.py`: runtime configuration defaults.
@@ -63,17 +63,6 @@ Model checkpoints are saved to:
 
 - `outputs/best_weights.keras` (or your chosen `--output-dir`)
 
-## What Was Fixed During Refactor
-
-- Removed hardcoded absolute paths and replaced them with CLI arguments.
-- Fixed checkpoint consistency (train/save/load now use the same file).
-- Fixed class label mapping by deriving labels from generator `class_indices`.
-- Fixed random sampling bug in qualitative prediction plotting.
-- Added stratified train/test split for better class balance.
-- Separated validation generator from augmentation pipeline.
-- Removed truncating `steps_per_epoch` usage that could drop data.
-
 ## Notes
 
 - This remains a research/training project; no API or deployment service is included.
-- If you want, the next step can be adding `requirements.txt` and lightweight tests for data loading and label mapping.
